@@ -18,6 +18,9 @@
       <li class="nav-item">
         <a class="nav-link <?= ($activePage == 'page2') ? 'active' : ''; ?>" href="?page=page2">Pagina2</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link <?= ($activePage == 'csv') ? 'active' : ''; ?>" href="?page=csv">CSV</a>
+      </li>
     </ul>
 
     <span class="navbar-text">

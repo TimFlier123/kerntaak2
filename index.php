@@ -36,6 +36,9 @@ if ($login->isUserLoggedIn() == true) {
         case "page2":
             include("pages/page2.php");
             break;
+        case "csv":
+            include("pages/csv.php");
+            break;
     }
 
     include("includes/footer.php");
