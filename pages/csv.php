@@ -1,15 +1,15 @@
 <?php
-
+// use the csv class
 use csv\csvimport;
 
 require_once 'csv/DataSource.php';
 $db = new csvimport();
 $conn = $db->getConnection();
-
+// if user clicks the import button
 if (isset($_POST["import"])) {
 
     $fileName = $_FILES["file"]["tmp_name"];
-
+    // if the file is not empty
     if ($_FILES["file"]["size"] > 0) {
 
         $file = fopen($fileName, "r");
@@ -36,7 +36,7 @@ if (isset($_POST["import"])) {
             if (isset($column[4])) {
                 $lastName = mysqli_real_escape_string($conn, $column[4]);
             }
-
+            // insert data to database
             $sqlInsert = "INSERT into csv (userId,userName,password,firstName,lastName)
                    values (?,?,?,?,?)";
             $paramType = "issss";
@@ -48,7 +48,7 @@ if (isset($_POST["import"])) {
                 $lastName
             );
             $insertId = $db->insert($sqlInsert, $paramType, $paramArray);
-
+            // errors
             if (!empty($insertId)) {
                 $type = "success";
                 $message = "CSV Data geimporteerd naar de database";
@@ -62,7 +62,7 @@ if (isset($_POST["import"])) {
 ?>
 <!DOCTYPE html>
 <html>
-
+<!-- javascript to check file -->
 <head>
     <script src="jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="styling/csv.css">
@@ -85,7 +85,7 @@ if (isset($_POST["import"])) {
         });
     </script>
 </head>
-
+<!-- html -->
 <body>
     <h2>Import CSV</h2>
 
@@ -108,6 +108,7 @@ if (isset($_POST["import"])) {
             </form>
         </div>
         <?php
+        // select all data to show in table
         $sqlSelect = "SELECT * FROM csv";
         $result = $db->select($sqlSelect);
         if (!empty($result)) {
@@ -123,7 +124,7 @@ if (isset($_POST["import"])) {
                     </tr>
                 </thead>
                 <?php
-
+                // echo data in rows
                 foreach ($result as $row) {
                 ?>
                     <tbody>
