@@ -15,7 +15,7 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
 // include the database connection
 require_once("config/db.php");
 
-// load the login class
+// load the login clas
 require_once("classes/Login.php");
 
 // create a login object.
