@@ -30,7 +30,7 @@
                 <div class="col-md-12">
                     <div class="mt-5 mb-3 clearfix">
                         <h2 class="pull-left" style="color:blue">Scholen</h2>
-                        <a href="create.php" class="btn btn-warning pull-right"><i class="fa fa-plus"></i> Nieuwe School</a>
+                        <a href="crud/createschool.php" class="btn pull-right" style="background-color:#ff9623;"><i class="fa fa-plus"></i> Nieuwe School</a>
                     </div>
                     <?php
                     // Include config file
@@ -55,8 +55,8 @@
                                         echo "<td>" . $row['name'] . "</td>";
                                         echo "<td>";
                                             // echo '<a href="read.php?id='. $row['ID'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                                            echo '<a href="update.php?id='. $row['ID'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                                            echo '<a href="delete.php?id='. $row['ID'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                            echo '<a href="crud/editschool.php?id='. $row['ID'] .'" class="mr-3" title="School Bewerken" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                            echo '<a href="crud/deleteschool.php?id='. $row['ID'] .'" title="School Verwijderen" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                         echo "</td>";
                                     echo "</tr>";
                                 }

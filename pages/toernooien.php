@@ -30,7 +30,7 @@
                 <div class="col-md-12">
                     <div class="mt-5 mb-3 clearfix">
                         <h2 class="pull-left" style="color:blue">Toernooien</h2>
-                        <a href="create.php" class="btn btn-warning pull-right"><i class="fa fa-plus"></i> Nieuw Toernooi</a>
+                        <a href="crud/createtournament.php" class="btn pull-right" style="background-color:#ff9623;"><i class="fa fa-plus"></i> Nieuw Toernooi</a>
                     </div>
                     <?php
                     // Include config file
@@ -44,8 +44,8 @@
                                 echo "<thead>";
                                     echo "<tr>";
                             
-                                        echo "<th>Description</th>";
-                                        echo "<th>Date</th>";
+                                        echo "<th>Naam</th>";
+                                        echo "<th>Datum</th>";
                                     
                                     echo "</tr>";
                                 echo "</thead>";
@@ -57,8 +57,8 @@
                                         echo "<td>" . $row['date'] . "</td>";
                                         echo "<td>";
                                             // echo '<a href="read.php?id='. $row['ID'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                                            echo '<a href="update.php?id='. $row['ID'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                                            echo '<a href="delete.php?id='. $row['ID'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                            echo '<a href="crud/edittournament.php?id='. $row['ID'] .'" class="mr-3" title="Bewerk Toernooi" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                            echo '<a href="crud/deletetournament.php?id='. $row['ID'] .'" title="Verwijder Toernooi" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                         echo "</td>";
                                     echo "</tr>";
                                 }
@@ -67,7 +67,7 @@
                             // Free result set
                             mysqli_free_result($result);
                         } else{
-                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                            echo '<div class="alert alert-danger"><em>Geen toernooien gevonden.</em></div>';
                         }
                     } else{
                         echo "Oops! Something went wrong. Please try again later.";
