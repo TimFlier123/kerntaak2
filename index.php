@@ -1,10 +1,6 @@
 <link rel="stylesheet" href="styling/style.css" type="text/css">
 
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // checking for minimum PHP version
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
@@ -42,9 +38,12 @@ if ($login->isUserLoggedIn() == true) {
         case "handmatig":
             include("pages/handmatig.php");
             break;
-            case "updateplayer":
-                include("pages/update/updateplayer.php");
-                break;
+        case "importeren":
+            include("pages/import.php");
+            break;
+        case "updateplayer":
+            include("pages/update/updateplayer.php");
+            break;
     }
 
     include("includes/footer.php");

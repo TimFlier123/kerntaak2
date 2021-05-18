@@ -61,8 +61,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                $message = "Speler Toegevoegd";
-            echo "<script type='text/javascript'>alert('$message');</script>";
+                header("location:../?page=spelers");
             } else{
                 echo $sql;
             }
@@ -115,8 +114,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                         <div class="form-group">
                             <label>School</label>
-                            <input type="text" name="school" class="form-control <?php echo (!empty($school_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $school; ?>">
-                            <span class="invalid-feedback"><?php echo $school_err;?></span>
+                            <select name="school">
+                                <?php
+                                $sql = mysqli_query($link, "SELECT * FROM school");
+                                while ($row = $sql->fetch_assoc()) {
+                                    echo "<option value=\"{$row['ID']}\">{$row['name']}</option>";
+                                }
+                                ?>
+                            </select>
                         </div>
                      
                         <input type="submit" class="btn btn-primary" value="Submit">
