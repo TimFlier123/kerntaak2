@@ -6,9 +6,9 @@ class csvimport
 {
 
     const HOST = 'localhost';
-    const USERNAME = 'flitim55_kerntaak2';
-    const PASSWORD = '9-iP-@gvO51vS8cJ0&C$';
-    const DATABASENAME = 'flitim55_kerntaak2';
+    const USERNAME = 'admin';
+    const PASSWORD = 'admin';
+    const DATABASENAME = 'flitim_kerntaak2';
 
     private $conn;
 

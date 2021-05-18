@@ -15,7 +15,7 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
 // include the database connection
 require_once("config/db.php");
 
-// load the login clas
+// load the login class
 require_once("classes/Login.php");
 
 // create a login object.
@@ -30,15 +30,21 @@ if ($login->isUserLoggedIn() == true) {
         case "":
             include("views/logged_in.php");
             break;
-        case "page1":
-            include("pages/page1.php");
+        case "spelers":
+            include("pages/spelers.php");
             break;
-        case "page2":
-            include("pages/page2.php");
+        case "schools":
+            include("pages/schools.php");
             break;
-        case "csv":
-            include("pages/csv.php");
+        case "toernooien":
+            include("pages/toernooien.php");
             break;
+        case "handmatig":
+            include("pages/handmatig.php");
+            break;
+            case "updateplayer":
+                include("pages/update/updateplayer.php");
+                break;
     }
 
     include("includes/footer.php");
