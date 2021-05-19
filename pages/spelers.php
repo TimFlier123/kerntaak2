@@ -55,14 +55,13 @@
                                 while($row = mysqli_fetch_array($result)){
                                     echo "<tr>";
                         
-                                        echo "<td>" . $row['callsign'] . "</td>";
+                                        echo "<td id='start'>" . $row['callsign'] . "</td>";
                                         echo "<td>" . $row['insertion'] . "</td>";
                                         echo "<td>" . $row['lastname'] . "</td>";
                                         echo "<td>" . $row['name'] . "</td>";
                                         echo "<td>";
-                                            // echo '<a href="read.php?id='. $row['ID'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                                            echo '<a href="crud/editplayer.php?id='. $row['ID'] .'" class="mr-3" title="Speler Bewerken" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                                            echo '<a href="crud/deleteplayer.php?id='. $row['ID'] .'" title="Speler Verwijderen" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                        echo '<a href="crud/editplayer.php?id='. $row['ID'] .'" class="mr-3" title="Speler Bewerken" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                        echo '<a href="crud/deleteplayer.php?id='. $row['ID'] .'" title="Speler Verwijderen" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                         echo "</td>";
                                     echo "</tr>";
                                 }
@@ -87,3 +86,4 @@
     </div>
 </body>
 </html>
+<script src="includes/js/functions.js"></script>
