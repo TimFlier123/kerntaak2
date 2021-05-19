@@ -295,11 +295,111 @@ function createTournament(){
 
 function selectFromPlayers()
 {
+
 }
+
 function giveError()
 {
     if (empty(trim($_GET["id"]))) {
         header("location: error.php");
         exit();
     }
+}
+
+function spelersImporteren($file, $conn)
+{
+    $file = $_FILES['xmlPlayers']['tmp_name'];
+    $content = utf8_encode(file_get_contents($file));
+    $xml = simplexml_load_string($content);
+
+    foreach ($xml as $syn) {
+        $stmt = $conn->prepare("INSERT INTO speler (ID, callsign, insertion, lastname, schoolID) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $playerID, $callSign, $insertion, $lastName, $schoolID);
+
+        $playerID   = htmlspecialchars($syn->ID);
+        $callSign   = htmlspecialchars($syn->Voornaam);
+        $insertion  = htmlspecialchars($syn->Tussenvoegsels);
+        $lastName   = htmlspecialchars($syn->Achternaam);
+        $schoolID   = htmlspecialchars($syn->SchoolID);
+        $stmt->execute();
+    }
+}
+
+function schoolImporteren($file, $conn)
+{
+    $file = $_FILES['xmlSchools']['tmp_name'];
+    $content = utf8_encode(file_get_contents($file));
+    $xml = simplexml_load_string($content);
+
+    foreach ($xml as $syn) {
+        $stmt = $conn->prepare("INSERT INTO school (ID, name) VALUES (?, ?)");
+        $stmt->bind_param("ss", $ID, $schoolName);
+
+        $ID           = htmlspecialchars($syn->ID);
+        $schoolName   = htmlspecialchars($syn->Naam);
+        $stmt->execute();
+    }
+}
+
+function tournamentImporteren($file, $conn)
+{
+    $file = $_FILES['xmlTournaments']['tmp_name'];
+    $content = utf8_encode(file_get_contents($file));
+    $xml = simplexml_load_string($content);
+
+    foreach ($xml as $syn) {
+        $stmt = $conn->prepare("INSERT INTO toernooi (ID, description, date) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $tournamentID, $tournamentDesc, $tournamentDate);
+
+        $tournamentID   = htmlspecialchars($syn->ID);
+        $tournamentDesc = htmlspecialchars($syn->Omschrijving);
+        $tournamentDate = htmlspecialchars($syn->Datum);
+        $stmt->execute();
+    }
+}
+
+function aanmeldingenImporteren($file, $conn)
+{
+    $file = $_FILES['xmlRegistrations']['tmp_name'];
+    $content = utf8_encode(file_get_contents($file));
+    $xml = simplexml_load_string($content);
+
+    foreach ($xml as $syn) {
+        $stmt = $conn->prepare("INSERT INTO aanmelding (ID, playerID, tournamentID) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $registrationID, $playerID, $tournamentID);
+
+        $registrationID   = htmlspecialchars($syn->ID);
+        $playerID = htmlspecialchars($syn->SpelerID);
+        $tournamentID = htmlspecialchars($syn->ToernooiID);
+        $stmt->execute();
+    }
+}
+
+function aanmeldingHandmatig()
+{
+    global $link;
+    $playerID = trim($_POST["player"]);
+    $tournamentID = trim($_POST["tournament"]);
+   
+    if (empty($tournament_err) && empty($tournament_err)) {
+      
+        $sql = "INSERT INTO aanmelding (playerID, tournamentID) VALUES (?, ?)";
+      
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            
+            mysqli_stmt_bind_param($stmt, "ss", $param_playerID, $param_tournamentID);
+            $param_playerID = $playerID;
+            $param_tournamentID = $tournamentID;
+
+            if (mysqli_stmt_execute($stmt)) {
+                $message = "Aanmelding succesvol";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+                header("Refresh:0");
+            } else {
+                echo "Mislukt. Probeer opnieuw";
+            }
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
 }
