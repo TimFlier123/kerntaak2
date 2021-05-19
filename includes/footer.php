@@ -8,7 +8,7 @@
   <!-- Copyright -->
   <div class="text-center p-3">
     © 2021 Copyright:
-    <a class="text-dark">Timothy Flier</a>
+    <a class="text-dark">Dukes Software Engineering @ KNLTB</a>
   </div>
   <!-- Copyright -->
 </footer>
