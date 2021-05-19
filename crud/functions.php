@@ -348,6 +348,28 @@ function aanmeldingenImporteren($file, $conn)
     }
 }
 
+function wedstrijdImporteren($file, $conn)
+{
+    $file = $_FILES['xmlGames']['tmp_name'];
+    $content = utf8_encode(file_get_contents($file));
+    $xml = simplexml_load_string($content);
+
+    foreach ($xml as $syn) {
+        $stmt = $conn->prepare("INSERT INTO wedstrijd (ID, tournamentID, player1ID, round, player2ID, score1, score2, winnerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssss", $gameID, $tournamentID, $player1ID, $round, $player2ID, $score1, $score2, $winnerID);
+
+        $gameID   = htmlspecialchars($syn->ID);
+        $tournamentID = htmlspecialchars($syn->ToernooiID);
+        $round = htmlspecialchars($syn->Ronde);
+        $player1ID = htmlspecialchars($syn->Speler1ID);
+        $player2ID = htmlspecialchars($syn->Speler2ID);
+        $score1 = htmlspecialchars($syn->Score1);
+        $score2 = htmlspecialchars($syn->Score2);
+        $winnerID = htmlspecialchars($syn->WinnaarID);
+        $stmt->execute();
+    }
+}
+
 function aanmeldingHandmatig()
 {
     global $link;
