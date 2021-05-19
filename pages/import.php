@@ -29,6 +29,9 @@ elseif (isset($_FILES['xmlTournaments'])) {
 elseif (isset($_FILES['xmlRegistrations'])) {
     aanmeldingenImporteren($_FILES['xmlRegistrations'], $conn);
 }
+elseif (isset($_FILES['xmlGames'])) {
+    wedstrijdImporteren($_FILES['xmlGames'], $conn);
+}
 ?>
 
 <style>
@@ -43,6 +46,7 @@ elseif (isset($_FILES['xmlRegistrations'])) {
   <option value="2">Scholen</option>
   <option value="3">Toernooien</option>
   <option value="4">Aanmeldingen</option>
+  <option value="5">Wedstrijden</option>
 </select>
 
 <div id="1" class="form-select" style="display: block">
@@ -98,6 +102,22 @@ elseif (isset($_FILES['xmlRegistrations'])) {
                             <form action="" method="post" enctype="multipart/form-data">
                                 Aanmeldingen:
                                 <input type="file" name="xmlRegistrations">
+                                <input type="submit" name="submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+
+<div id="5" class="form-select">
+    <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                Wedstrijden:
+                                <input type="file" name="xmlGames">
                                 <input type="submit" name="submit">
                             </form>
                         </div>
