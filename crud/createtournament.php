@@ -1,5 +1,5 @@
 <?php
-// Include config file
+include_once('functions.php');
 require_once "../config/crud.php";
  
 // Define variables and initialize with empty values
@@ -8,47 +8,7 @@ $name_err = $tdate = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    // Validate name
-    $input_name = trim($_POST["name"]);
-    if(empty($input_name)){
-        $name_err = "Please enter a name.";
-    } elseif(!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-        $name_err = "Please enter a valid name.";
-    } else{
-        $name = $input_name;
-    }
-    
-    
-    // Check input errors before inserting in database
-    if(empty($name_err) && empty($insertion_err) && empty($lastname_err) && empty($school_err)){
-        // Prepare an insert statement
-        
-        $sql = "INSERT INTO toernooi (description, date) VALUES (?, ?)";
-      
-        if($stmt = mysqli_prepare($link, $sql)){
-            
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_name, $param_tdate);
-            
-            // Set parameters
-            $param_name = $name;
-            $param_tdate = $tdate;
-            
-
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                header("location:../?page=toernooien");
-            } else{
-                echo $sql;
-            }
-        }
-         
-        // Close statement
-        mysqli_stmt_close($stmt);
-    }
-    
-    // Close connection
-    mysqli_close($link);
+   createTournament();
 }
 ?>
  
