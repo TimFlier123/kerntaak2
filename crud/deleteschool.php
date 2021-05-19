@@ -1,14 +1,13 @@
 <?php
+
 include_once('functions.php');
+
 if(isset($_POST["id"]) && !empty($_POST["id"])){
-    
     deleteSchool();
-
 } else{
-
     giveError();
-    
 }
+
 ?>
 
 <!DOCTYPE html>
