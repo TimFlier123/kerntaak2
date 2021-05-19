@@ -37,7 +37,7 @@
         <a class="nav-link" href="?page=toernooioverzicht">Toernooioverzicht</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="?page=csv">Uitslagen beheren</a>
+        <a class="nav-link" href="?page=uitslagenbeheren">Uitslagen beheren</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="?page=csv">Indelen Volg Ronde</a>
