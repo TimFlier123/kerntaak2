@@ -1,7 +1,9 @@
-
+/**
+ * Function with jquery to scroll trough the table 
+ */
 var start = document.getElementById('start');
 start.focus();
-start.style.backgroundColor = 'green';
+start.style.backgroundColor = 'orange';
 start.style.color = 'white';
 
 function dotheneedful(sibling) {
@@ -10,14 +12,16 @@ function dotheneedful(sibling) {
     start.style.backgroundColor = '';
     start.style.color = '';
     sibling.focus();
-    sibling.style.backgroundColor = 'green';
+    sibling.style.backgroundColor = 'orange';
     sibling.style.color = 'white';
     start = sibling;
   }
 }
 
 document.onkeydown = checkKey;
-
+/**
+ * Function with jquery to scroll trough the table 
+ */
 function checkKey(e) {
   e = e || window.event;
   if (e.keyCode == '38') {

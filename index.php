@@ -3,6 +3,7 @@
 <?php
 include("includes/header.php");
 
+// switch to get current page
 switch (@$_GET['page']) {
     case "":
         include("pages/home.php");

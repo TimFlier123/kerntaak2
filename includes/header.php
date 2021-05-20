@@ -6,11 +6,13 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <!-- Header Styling -->
   <style>
     .navbar .nav {
       overflow: visible;
     }
   </style>
+  <!-- Header Menu -->
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <?php $activePage = @$_GET['page']; ?>
@@ -42,26 +44,6 @@
       <li class="nav-item">
         <a class="nav-link" href="?page=csv">Indelen Volg Ronde</a>
       </li>
-      <!-- <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Basisgegevens
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="nav-link <?= ($activePage == 'spelers') ? 'active' : ''; ?>" href="?page=spelers">Spelers</a>
-          <a class="nav-link <?= ($activePage == 'scholen') ? 'active' : ''; ?>" href="?page=schools">Scholen</a>
-          <a class="nav-link <?= ($activePage == 'toernooien') ? 'active' : ''; ?>" href="?page=toernooien">Toernooien</a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Aanmelden
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="nav-link <?= ($activePage == 'spelers') ? 'active' : ''; ?>" href="?page=handmatig">Handmatig</a>
-          <a class="nav-link <?= ($activePage == 'scholen') ? 'active' : ''; ?>" href="?page=importeren">Importeren</a>
-          <a class="nav-link <?= ($activePage == 'toernooien') ? 'active' : ''; ?>" href="?page=sluiten">Sluiten</a>
-        </div>
-      </div> -->
     </ul>
   </div>
 </nav>

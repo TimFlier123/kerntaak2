@@ -2,11 +2,11 @@
 include_once('functions.php');
 require_once "../config/crud.php";
 
-
+// if form is submitted then run the function editTournament, else show values
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
 
     editTournament();
-
+    
 } else {
 
     if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
@@ -63,6 +63,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="mt-5">Toernooi Bewerken</h2>
+                    <!-- Edit game form -->
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                         <div class="form-group">
                             <label>Naam</label>
@@ -74,7 +75,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                             <input type="text" name="date" class="form-control <?php echo (!empty($date_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $date; ?>">
                             <span class="invalid-feedback"><?php echo $date_err; ?></span>
                         </div>
-
+                        <!-- submit form -->
                         <input type="hidden" name="id" value="<?php echo $id; ?>" />
                         <input type="submit" class="btn btn-primary" value="Bewerken">
                         <a href="../?page=toernooien" class="btn btn-secondary ml-2">Annuleren</a>
@@ -84,4 +85,5 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         </div>
     </div>
 </body>
+
 </html>

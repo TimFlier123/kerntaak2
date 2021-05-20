@@ -11,6 +11,7 @@
             width: 120px;
         }
     </style>
+       <!-- show tooltips -->
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();   
@@ -29,7 +30,7 @@
                     // Include config file
                     require_once "config/crud.php";
                     
-                    // Attempt select query execution
+                      // Select all data from games table
                     $sql = "SELECT * FROM wedstrijd";
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
@@ -64,16 +65,16 @@
                                 }
                                 echo "</tbody>";                            
                             echo "</table>";
-                            // Free result set
+
                             mysqli_free_result($result);
                         } else{
+                              // if table contains no data
                             echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
                         }
                     } else{
                         echo "Error. Probeer opnieuw";
                     }
  
-                    // Close connection
                     mysqli_close($link);
                     ?>
                     

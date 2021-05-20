@@ -5,6 +5,7 @@ require_once "config/crud.php";
 $playerID = $tournamentID = "";
 $playerID_err = $tournamentID_err = "";
 
+// If user has submitted form run aanmeldingHandmatig() function
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     aanmeldingHandmatig();
 }
@@ -31,10 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="mt-5 text-primary">Aanmelden - Handmatig</h2>
+                    <!-- Form to insert registration to database -->
                     <form action="" method="post">
 
                         <div class="form-group">
                             <label>Naam</label>
+                            <!-- Select all players to fill dropdown -->
                             <select name="player">
                                 <?php
                                 $sql = mysqli_query($link, "SELECT * FROM speler");
@@ -44,9 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 ?>
                             </select>
                         </div>
-    
+
                         <div class="form-group">
                             <label>Toernooi</label>
+                            <!-- Select all tournaments to fill dropdown -->
                             <select name="tournament">
                                 <?php
                                 $sql = mysqli_query($link, "SELECT * FROM toernooi");
@@ -56,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 ?>
                             </select>
                         </div>
-
+                        <!-- Submit Form -->
                         <input type="submit" class="btn btn-primary" value="Aanmelden">
                     </form>
                 </div>

@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Function to delete player from database
+ * Executes query or gives error
+ */
 function deletePlayer()
 {
 
@@ -19,6 +24,11 @@ function deletePlayer()
     mysqli_stmt_close($stmt);
     mysqli_close($link);
 }
+
+/**
+ * Function to delete game from database
+ * Executes query or gives error
+ */
 function deleteGame()
 {
     require_once "../config/crud.php";
@@ -38,33 +48,48 @@ function deleteGame()
     mysqli_stmt_close($stmt);
     mysqli_close($link);
 }
-function editTournament(){
+
+/**
+ * Function to edit tournament from database
+ * Executes query or gives error
+ */
+function editTournament()
+{
     global $link;
     $id = $_POST["id"];
     $name = trim($_POST["name"]);
     $date = trim($_POST["date"]);
-   
-        $sql = "UPDATE toernooi SET description=?, date=? WHERE id=?";
-        echo $sql;
-         echo $name; echo $date; echo $id;
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "sss", $param_name, $param_date, $param_id);
-            $param_name = $name;
-            $param_date = $date;
-            $param_id = $id;
-            echo $name; echo $date; echo $id;
 
-            if (mysqli_stmt_execute($stmt)) {
+    $sql = "UPDATE toernooi SET description=?, date=? WHERE id=?";
+    echo $sql;
+    echo $name;
+    echo $date;
+    echo $id;
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "sss", $param_name, $param_date, $param_id);
+        $param_name = $name;
+        $param_date = $date;
+        $param_id = $id;
+        echo $name;
+        echo $date;
+        echo $id;
 
-                header("location: ../?page=toernooien");
-                exit();
-            } else {
-                echo "Mislukt. Probeer opnieuw.";
-            }
+        if (mysqli_stmt_execute($stmt)) {
+
+            header("location: ../?page=toernooien");
+            exit();
+        } else {
+            echo "Mislukt. Probeer opnieuw.";
         }
-        mysqli_stmt_close($stmt);
+    }
+    mysqli_stmt_close($stmt);
     mysqli_close($link);
 }
+
+/**
+ * Function to delete school from database
+ * Executes query or gives error
+ */
 function deleteSchool()
 {
     require_once "../config/crud.php";
@@ -87,6 +112,10 @@ function deleteSchool()
     mysqli_close($link);
 }
 
+/**
+ * Function to delete tournament from database
+ * Executes query or gives error
+ */
 function deleteTournament()
 {
     require_once "../config/crud.php";
@@ -109,6 +138,10 @@ function deleteTournament()
     mysqli_close($link);
 }
 
+/**
+ * Function to edit player from database
+ * Executes query or gives error
+ */
 function editPlayer()
 {
 
@@ -134,8 +167,6 @@ function editPlayer()
     } else {
         $school = $input_school;
     }
-
-
     if (empty($name_err) && empty($insertion_err) && empty($lastname_err) && empty($school_err)) {
         $sql = "UPDATE speler SET callsign=?, insertion=?, lastname=?, schoolID=? WHERE id=?";
 
@@ -162,6 +193,56 @@ function editPlayer()
     mysqli_close($link);
 }
 
+/**
+ * Function to edit game from database
+ * Executes query or gives error
+ */
+function editGame()
+{
+
+    global $link;
+    $id = $_POST["id"];
+    $tournament = trim($_POST["tournament"]);
+    $player1 = trim($_POST["player1"]);
+    $player2 = trim($_POST["player2"]);
+    $score1 = trim($_POST["score1"]);
+    $score2 = trim($_POST["score2"]);
+    $winnerID = trim($_POST["winnerID"]);
+
+
+
+    if (empty($name_err) && empty($insertion_err) && empty($lastname_err) && empty($school_err)) {
+        $sql = "UPDATE wedstrijd SET tournamentID=?, player1ID=?, player2ID=?, score1=?, score2=?, winnerID=? WHERE id=?";
+        echo $sql;
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "sssssss", $tournament, $player1, $player2, $score1, $score2, $winnerID, $id);
+
+            $param_tournament = $tournament;
+            $param_player1 = $player1;
+            $param_player2 = $player2;
+            $param_score1 = $score1;
+            $param_score2 = $score2;
+            $param_winnerID = $winnerID;
+
+
+
+            if (mysqli_stmt_execute($stmt)) {
+
+                header("location: ../?page=uitslagenbeheren");
+                exit();
+            } else {
+                echo "Mislukt. Probeer opnieuw.";
+            }
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+}
+
+/**
+ * Function to edit school from database
+ * Executes query or gives error
+ */
 function editSchool()
 {
     global $link;
@@ -196,6 +277,10 @@ function editSchool()
     mysqli_close($link);
 }
 
+/**
+ * Function to create player and insert to database
+ * Executes query or gives error
+ */
 function createPlayer()
 {
     global $link;
@@ -250,6 +335,10 @@ function createPlayer()
     mysqli_close($link);
 }
 
+/**
+ * Function to create school and insert to database
+ * Executes query or gives error
+ */
 function createSchool()
 {
     global $link;
@@ -282,6 +371,10 @@ function createSchool()
     mysqli_close($link);
 }
 
+/**
+ * Function to create tournament and insert to database
+ * Executes query or gives error
+ */
 function createTournament()
 {
     global $link;
@@ -316,6 +409,9 @@ function createTournament()
     mysqli_close($link);
 }
 
+/**
+ * Function to give error
+ */
 function giveError()
 {
     if (empty(trim($_GET["id"]))) {
@@ -324,6 +420,10 @@ function giveError()
     }
 }
 
+/**
+ * Function to import player from XML file to database
+ * Executes query or gives error
+ */
 function spelersImporteren($file, $conn)
 {
     $file = $_FILES['xmlPlayers']['tmp_name'];
@@ -343,6 +443,10 @@ function spelersImporteren($file, $conn)
     }
 }
 
+/**
+ * Function to import school from XML file to database
+ * Executes query or gives error
+ */
 function schoolImporteren($file, $conn)
 {
     $file = $_FILES['xmlSchools']['tmp_name'];
@@ -359,6 +463,10 @@ function schoolImporteren($file, $conn)
     }
 }
 
+/**
+ * Function to import tournament from XML file to database
+ * Executes query or gives error
+ */
 function tournamentImporteren($file, $conn)
 {
     $file = $_FILES['xmlTournaments']['tmp_name'];
@@ -376,6 +484,10 @@ function tournamentImporteren($file, $conn)
     }
 }
 
+/**
+ * Function to import registration from XML file to database
+ * Executes query or gives error
+ */
 function aanmeldingenImporteren($file, $conn)
 {
     $file = $_FILES['xmlRegistrations']['tmp_name'];
@@ -393,6 +505,10 @@ function aanmeldingenImporteren($file, $conn)
     }
 }
 
+/**
+ * Function to import game from XML file to database
+ * Executes query or gives error
+ */
 function wedstrijdImporteren($file, $conn)
 {
     $file = $_FILES['xmlGames']['tmp_name'];
@@ -415,6 +531,10 @@ function wedstrijdImporteren($file, $conn)
     }
 }
 
+/**
+ * Function to manually import registration to database
+ * Executes query or gives error
+ */
 function aanmeldingHandmatig()
 {
     global $link;

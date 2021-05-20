@@ -5,10 +5,10 @@ require_once "../config/crud.php";
 $name = $insertion = $lastname = $school = "";
 $name_err = $insertion_err = $lastname_err = $school = "";
 
+// if user submits form  run function
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    createPlayer();
 
+    createPlayer();
 }
 ?>
 
@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
+                    <!-- new player form -->
                     <h2 class="mt-5">Nieuwe Speler</h2>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
@@ -52,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="form-group">
                             <label>School</label>
+                            <!-- select schools to fill dropdown -->
                             <select name="school">
                                 <?php
                                 $sql = mysqli_query($link, "SELECT * FROM school");
@@ -61,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 ?>
                             </select>
                         </div>
-
+                        <!-- submit form -->
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="../?page=spelers" class="btn btn-secondary ml-2">Cancel</a>
                     </form>

@@ -5,7 +5,7 @@ require_once "../config/crud.php";
 $name = "";
 $name_err = "";
 
-
+// if user submits form  run function
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     createSchool();
 }
@@ -32,13 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="mt-5">Nieuwe School</h2>
+                    <!-- new school form -->
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
                             <label>Naam</label>
                             <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
                             <span class="invalid-feedback"><?php echo $name_err; ?></span>
                         </div>
-
+                        <!-- submit form -->
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="../?page=schools" class="btn btn-secondary ml-2">Cancel</a>
                     </form>

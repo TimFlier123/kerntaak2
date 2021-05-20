@@ -2,7 +2,7 @@
 include_once('functions.php');
 require_once "../config/crud.php";
 
-
+// if form is submitted then run the function editPlayer, else show values
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
 
     editPlayer();
@@ -62,12 +62,13 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     </style>
 </head>
 
-<body>
+<body style="background-color:#ff9623;">
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="mt-5">Speler Bewerken</h2>
+                    <!-- edit player form -->
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                         <div class="form-group">
                             <label>Voornaam</label>
@@ -90,6 +91,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                             <input type="text" name="school" class="form-control <?php echo (!empty($school_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $school; ?>">
                             <span class="invalid-feedback"><?php echo $school_err; ?></span>
                         </div>
+                        <!-- submit form -->
                         <input type="hidden" name="id" value="<?php echo $id; ?>" />
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="../?page=spelers" class="btn btn-secondary ml-2">Cancel</a>
