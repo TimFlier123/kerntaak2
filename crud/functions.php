@@ -19,7 +19,52 @@ function deletePlayer()
     mysqli_stmt_close($stmt);
     mysqli_close($link);
 }
+function deleteGame()
+{
+    require_once "../config/crud.php";
+    $sql = "DELETE FROM wedstrijd WHERE id = ?";
 
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "i", $param_id);
+        $param_id = trim($_POST["id"]);
+
+        if (mysqli_stmt_execute($stmt)) {
+            header("location: ../?page=uitslagenbeheren");
+            exit();
+        } else {
+            echo "Oops! Something went wrong. Please try again later.";
+        }
+    }
+    mysqli_stmt_close($stmt);
+    mysqli_close($link);
+}
+function editTournament(){
+    global $link;
+    $id = $_POST["id"];
+    $name = trim($_POST["name"]);
+    $date = trim($_POST["date"]);
+   
+        $sql = "UPDATE toernooi SET description=?, date=? WHERE id=?";
+        echo $sql;
+         echo $name; echo $date; echo $id;
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "sss", $param_name, $param_date, $param_id);
+            $param_name = $name;
+            $param_date = $date;
+            $param_id = $id;
+            echo $name; echo $date; echo $id;
+
+            if (mysqli_stmt_execute($stmt)) {
+
+                header("location: ../?page=toernooien");
+                exit();
+            } else {
+                echo "Mislukt. Probeer opnieuw.";
+            }
+        }
+        mysqli_stmt_close($stmt);
+    mysqli_close($link);
+}
 function deleteSchool()
 {
     require_once "../config/crud.php";
