@@ -5,7 +5,7 @@ include("includes/header.php");
 
 switch (@$_GET['page']) {
     case "":
-        include("views/logged_in.php");
+        include("pages/home.php");
         break;
     case "spelers":
         include("pages/spelers.php");
