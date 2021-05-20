@@ -1,102 +1,86 @@
-<script
-  src="https://code.jquery.com/jquery-3.6.0.js"
-  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  crossorigin="anonymous"></script>
-
-  <style>.saveButton,
-[contenteditable] .editButton{
-    display: none;
-}
-
-.editButton,
-[contenteditable] .saveButton {
-    display: inline; /* For IE */
-    display: inline-block;
-}
-
-[contenteditable] {
-    background: #ddddff;
-}</style>
-  <table id="elencoMezzi" class="itemList" width="100%">
-    <thead>
-    <tr>
-        <th>
-            Field 1
-        </th>
-        <th>
-            Field 2
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr data-id="1" class="displayRow">
-        <td>
-            Value 1.1
-        </td>
-        <td>
-            Value 1.2
-        </td>
-        <td>
-            <input type="button" value="edit" class="editButton" />
-            <input type="button" value="save" class="saveButton" />
-        </td>
-    </tr>    
-    <tr data-id="2" class="displayRow">
-        <td>
-            Value 2.1
-        </td>
-        <td>
-            Value 2.2
-        </td>
-        <td>
-            <input type="button" value="edit" class="editButton" />
-            <input type="button" value="save" class="saveButton" />
-        </td>
-    </tr>  
-    <tr data-id="3" class="displayRow">
-        <td>
-            Value 3.1
-        </td>
-        <td>
-            Value 3.2
-        </td>
-        <td>
-            <input type="button" value="edit" class="editButton" />
-            <input type="button" value="save" class="saveButton" />
-        </td>
-    </tr>          
-    </tbody>
-</table>
-<div id="editRowHolder" style="display:none;">
-    <tr class="editRow">
-        <td>
-            <input type="text" name="field1" />
-        </td>
-        <td>
-            <input type="text" name="field2" />
-        </td>
-        <td>
-            <input type="button" value="save" class="saveButton" />
-        </td>
-    </tr>
-</div>
-
-<script>
-$(function () {
-    $( 'tr' ).each( function editAndSave( index, tr ){
-        var $tr = $( tr );
-        
-        $tr.find( 'input[type=button]' ).on( 'click', function( e ){            
-            var toggle = $( e.target ).is( '.editButton' );
-            
-            if( toggle ){
-                $tr.attr( 'contenteditable', toggle );
-            }
-            else {
-                $tr.removeAttr( 'contenteditable' );
-            }
-        } )
-    });
-});
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <?php include_once "includes/head.php"; ?>
+    <style>
+        .wrapper{
+            width: 100%;
+            margin: 0 auto;
+        }
+        table tr td:last-child{
+            width: 120px;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mt-5 mb-3 clearfix">
+                        <h2 class="pull-left" style="color:blue">Uitslagen</h2>
+                    </div>
+                    <?php
+                    // Include config file
+                    require_once "config/crud.php";
+                    
+                    // Attempt select query execution
+                    $sql = "SELECT * FROM wedstrijd";
+                    if($result = mysqli_query($link, $sql)){
+                        if(mysqli_num_rows($result) > 0){
+                            echo '<table class="table table-bordered table-striped">';
+                                echo "<thead>";
+                                    echo "<tr>";
+                                        echo "<th>TournamentID</th>";
+                                        echo "<th>Ronde</th>";
+                                        echo "<th>player1ID</th>";
+                                        echo "<th>player2ID</th>";
+                                        echo "<th>score1</th>";
+                                        echo "<th>score2</th>";
+                                        echo "<th>winnerID</th>";
+                                    echo "</tr>";
+                                echo "</thead>";
+                                echo "<tbody>";
+                                while($row = mysqli_fetch_array($result)){
+                                    echo "<tr>";
+                        
+                                        echo "<td>" . $row['tournamentID'] . "</td>";
+                                        echo "<td>" . $row['round'] . "</td>";
+                                        echo "<td>" . $row['player1ID'] . "</td>";
+                                        echo "<td>" . $row['player2ID'] . "</td>";
+                                        echo "<td>" . $row['score1'] . "</td>";
+                                        echo "<td>" . $row['score2'] . "</td>";
+                                        echo "<td>" . $row['winnerID'] . "</td>";
+                                        echo "<td>";
+                                        echo '<a href="crud/editgame.php?id='. $row['ID'] .'" class="mr-3" title="Uitslag Bewerken" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                        echo '<a href="crud/deletegame.php?id='. $row['ID'] .'" title="Uitslag Verwijderen" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                        echo "</td>";
+                                    echo "</tr>";
+                                }
+                                echo "</tbody>";                            
+                            echo "</table>";
+                            // Free result set
+                            mysqli_free_result($result);
+                        } else{
+                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                        }
+                    } else{
+                        echo "Error. Probeer opnieuw";
+                    }
+ 
+                    // Close connection
+                    mysqli_close($link);
+                    ?>
+                    
+                </div>
+            </div>        
+        </div>
+    </div>
+</body>
+</html>
+<script src="includes/js/functions.js"></script>
