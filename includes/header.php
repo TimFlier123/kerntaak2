@@ -6,44 +6,39 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <!-- Header Styling -->
-  <style>
-    .navbar .nav {
-      overflow: visible;
-    }
-  </style>
+  <head>
+<link rel="stylesheet" href="styling/style.css">
+</head>
+
   <!-- Header Menu -->
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
-      <?php $activePage = @$_GET['page']; ?>
-
-      <li class="nav-item">
+     
+  <div class="dropdown">
+  <span>Basisgegevens</span>
+  <div class="dropdown-content">
         <a class="nav-link" href="?page=spelers">Spelers</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="?page=schools">Scholen</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="?page=toernooien">Toernooien</a>
-      </li>
-      <li class="nav-item">
+  </div>
+</div>
+<div class="dropdown">
+  <span>Aanmelden</span>
+  <div class="dropdown-content">
         <a class="nav-link" href="?page=handmatig">Handmatig</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="?page=importeren">Importeren</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="?page=sluiten">Sluiten</a>
-      </li>
-      <li class="nav-item">
+  </div>
+</div>
+<div class="dropdown">
+  <span>Uitslagen</span>
+  <div class="dropdown-content">
         <a class="nav-link" href="?page=toernooioverzicht">Toernooioverzicht</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="?page=uitslagenbeheren">Uitslagen beheren</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="?page=csv">Indelen Volg Ronde</a>
       </li>
+  </div>
+</div>
     </ul>
   </div>
 </nav>
