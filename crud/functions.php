@@ -419,13 +419,26 @@ function giveError()
         exit();
     }
 }
+/**
+ * Function to check if imported file is xml to database
+ * Parameter $file: is filename
+ * Executes query or gives error
+ */
+function checkXML($file){
+    $search = 'xml';
 
+    if(!preg_match("/{$search}/i", $file)) {
+        echo 'Geen geldig XML bestand';
+        die();
+    }
+}
 /**
  * Function to import player from XML file to database
  * Executes query or gives error
  */
 function spelersImporteren($file, $conn)
 {
+    checkXML($_FILES['xmlPlayers']['name']);
     $file = $_FILES['xmlPlayers']['tmp_name'];
     $content = utf8_encode(file_get_contents($file));
     $xml = simplexml_load_string($content);
@@ -449,6 +462,7 @@ function spelersImporteren($file, $conn)
  */
 function schoolImporteren($file, $conn)
 {
+    checkXML($_FILES['xmlSchools']['name']);
     $file = $_FILES['xmlSchools']['tmp_name'];
     $content = utf8_encode(file_get_contents($file));
     $xml = simplexml_load_string($content);
@@ -469,6 +483,7 @@ function schoolImporteren($file, $conn)
  */
 function tournamentImporteren($file, $conn)
 {
+    checkXML($_FILES['xmlTournaments']['name']);
     $file = $_FILES['xmlTournaments']['tmp_name'];
     $content = utf8_encode(file_get_contents($file));
     $xml = simplexml_load_string($content);
@@ -490,6 +505,7 @@ function tournamentImporteren($file, $conn)
  */
 function aanmeldingenImporteren($file, $conn)
 {
+    checkXML($_FILES['xmlRegistrations']['name']);
     $file = $_FILES['xmlRegistrations']['tmp_name'];
     $content = utf8_encode(file_get_contents($file));
     $xml = simplexml_load_string($content);
@@ -511,6 +527,7 @@ function aanmeldingenImporteren($file, $conn)
  */
 function wedstrijdImporteren($file, $conn)
 {
+    checkXML($_FILES['xmlGames']['name']);
     $file = $_FILES['xmlGames']['tmp_name'];
     $content = utf8_encode(file_get_contents($file));
     $xml = simplexml_load_string($content);
