@@ -38,8 +38,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
             }
         }
 
-        mysqli_stmt_close($stmt);
-        mysqli_close($link);
+        
     } else {
         header("location: error.php");
         exit();
@@ -87,10 +86,18 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                         </div>
 
                         <div class="form-group">
-                            <label>School</label>
-                            <input type="text" name="school" class="form-control <?php echo (!empty($school_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $school; ?>">
-                            <span class="invalid-feedback"><?php echo $school_err; ?></span>
-                        </div>
+                        <select name="school">
+                                <?php
+                                
+                                $sql = mysqli_query($link, "SELECT * FROM school");
+                                while ($row = $sql->fetch_assoc()) {
+                                    echo "<option value=\"{$row['ID']}\">{$row['ID']} - {$row['name']}</option>";
+                                }
+                                mysqli_stmt_close($stmt);
+                                mysqli_close($link);
+                                ?>
+                            </select>
+                            </div>
                         <!-- submit form -->
                         <input type="hidden" name="id" value="<?php echo $id; ?>" />
                         <input type="submit" class="btn btn-primary" value="Submit">
