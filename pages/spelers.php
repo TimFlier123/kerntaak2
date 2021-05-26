@@ -13,10 +13,16 @@
             width: 120px;
         }
     </style>
-    <!-- show tooltips -->
+    <!-- show tooltips and search trough table -->
     <script>
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
+            $("#search").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#spelers tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
         });
     </script>
 </head>
@@ -30,14 +36,16 @@
                         <h2 class="pull-left" style="color:blue">Spelers</h2>
                         <a href="crud/createplayer.php" class="btn pull-right" style="background-color:#ff9623;"><i class="fa fa-plus"></i> Nieuwe Speler</a>
                     </div>
+                    <input id="search" type="text" placeholder="Zoeken naar speler">
                     <?php
+
                     // Include config file
                     require_once "config/crud.php";
 
-                    // Select all data from players table
                     $sql = "SELECT speler.ID, speler.callsign, speler.insertion, speler.lastname, speler.schoolID, school.name
-                    FROM speler
+                    FROM speler 
                     INNER JOIN school ON speler.schoolID=school.ID;";
+
                     if ($result = mysqli_query($link, $sql)) {
                         if (mysqli_num_rows($result) > 0) {
                             echo '<table class="table table-bordered table-striped">';
@@ -49,7 +57,7 @@
                             echo "<th>School</th>";
                             echo "</tr>";
                             echo "</thead>";
-                            echo "<tbody>";
+                            echo "<tbody id='spelers'>";
                             while ($row = mysqli_fetch_array($result)) {
                                 echo "<tr>";
 
@@ -69,7 +77,7 @@
                             mysqli_free_result($result);
                         } else {
                             // if table contains no data
-                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                            echo '<div class="alert alert-danger"><em>Geen data gevonden.</em></div>';
                         }
                     } else {
                         echo "Fout. Probeer opnieuw.";
@@ -85,4 +93,3 @@
 </body>
 
 </html>
-<script src="includes/js/functions.js"></script>
