@@ -17,6 +17,9 @@ switch (@$_GET['page']) {
     case "toernooien":
         include("pages/toernooien.php");
         break;
+    case "aanmeldingen":
+        include("pages/aanmeldingen.php");
+        break;
     case "handmatig":
         include("pages/handmatig.php");
         break;
