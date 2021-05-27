@@ -59,7 +59,13 @@ function editTournament()
     $id = $_POST["id"];
     $name = trim($_POST["name"]);
     $date = trim($_POST["date"]);
-
+    if (empty($_POST["name"])) {
+        echo "<script type='text/javascript'>alert('Het veld Naam is niet ingevuld. Probeer opnieuw.');</script>";
+        header("Refresh:0");
+        die();
+    }
+    
+    
     $sql = "UPDATE toernooi SET description=?, date=? WHERE id=?";
     echo $sql;
     echo $name;
@@ -82,6 +88,7 @@ function editTournament()
             echo "Mislukt. Probeer opnieuw.";
         }
     }
+    
     mysqli_stmt_close($stmt);
     mysqli_close($link);
 }
@@ -368,6 +375,9 @@ function createSchool()
         }
         mysqli_stmt_close($stmt);
     }
+    else{
+        echo "<script type='text/javascript'>alert('Het veld Naam is niet ingevuld. Probeer opnieuw.');</script>";
+    }
     mysqli_close($link);
 }
 
@@ -405,6 +415,9 @@ function createTournament()
             }
         }
         mysqli_stmt_close($stmt);
+    }
+    else{
+        echo "<script type='text/javascript'>alert('Het veld Naam is niet ingevuld. Probeer opnieuw.');</script>";
     }
     mysqli_close($link);
 }
