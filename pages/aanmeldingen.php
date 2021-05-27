@@ -3,26 +3,11 @@
 
 <head>
     <?php include_once "includes/head.php"; ?>
-    <style>
-        .wrapper {
-            width: 600px;
-            margin: 0 auto;
-        }
-
-        table tr td:last-child {
-            width: 120px;
-        }
-    </style>
-    <!-- show tooltips -->
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
+    <link rel="stylesheet" href="styling/style.css" type="text/css">
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class="wrapperpx">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -34,7 +19,7 @@
                     // Include config file
                     require_once "config/crud.php";
 
-                    // Select all data from tournaments table
+                    // Select all data from aanmeldingen table
                     $sql = "SELECT * FROM aanmelding INNER JOIN speler ON aanmelding.playerID=speler.ID INNER JOIN toernooi ON aanmelding.tournamentID=toernooi.ID;";
                     if ($result = mysqli_query($link, $sql)) {
                         if (mysqli_num_rows($result) > 0) {
@@ -53,7 +38,7 @@
 
                                 echo "<td>" . $row['callsign'] . '&nbsp' . $row['insertion'] . '&nbsp' . $row['lastname'] .  "</td>";
                                 echo "<td>" . $row['description'] . "</td>";
-                                
+
                                 echo "</tr>";
                             }
                             echo "</tbody>";
@@ -61,7 +46,7 @@
                             mysqli_free_result($result);
                         } else {
                             // if table contains no data
-                            echo '<div class="alert alert-danger"><em>Geen toernooien gevonden.</em></div>';
+                            echo '<div class="alert alert-danger"><em>Geen aanmeldingen gevonden.</em></div>';
                         }
                     } else {
                         echo "Fout. Probeer opnieuw.";
@@ -73,6 +58,7 @@
             </div>
         </div>
     </div>
+    <script src="includes/js/functions.js"></script>
 </body>
 
 </html>

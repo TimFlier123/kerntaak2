@@ -1,11 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <?php include_once "../includes/head.php"; ?>
+    <link rel="stylesheet" href="../styling/style.css" type="text/css">
+</head>
+
 <?php
 include_once('functions.php');
 require_once "../config/crud.php";
 
 // if form is submitted then run the function editTournament, else show values
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
-
-    editTournament();
+    $id = $_POST["id"];
+    editTournament($id);
     
 } else {
 
@@ -15,8 +23,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
 
         if ($stmt = mysqli_prepare($link, $sql)) {
 
-            mysqli_stmt_bind_param($stmt, "i", $param_id);
-            $param_id = $id;
+            mysqli_stmt_bind_param($stmt, "i", $id);
 
             if (mysqli_stmt_execute($stmt)) {
                 $result = mysqli_stmt_get_result($stmt);
@@ -42,38 +49,21 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Toernooi Bewerken</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .wrapper {
-            width: 600px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
-
 <body style="background-color:#ff9623;">
-    <div class="wrapper">
+    <div class="wrapperpx">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="mt-5">Toernooi Bewerken</h2>
                     <!-- Edit game form -->
-                    <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
+                    <form action="" method="post">
                         <div class="form-group">
                             <label>Naam</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $name_err; ?></span>
+                            <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
                         </div>
                         <div class="form-group">
                             <label>Datum</label>
-                            <input type="text" name="date" class="form-control <?php echo (!empty($date_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $date; ?>">
-                            <span class="invalid-feedback"><?php echo $date_err; ?></span>
+                            <input type="text" name="date" class="form-control" value="<?php echo $date; ?>">
                         </div>
                         <!-- submit form -->
                         <input type="hidden" name="id" value="<?php echo $id; ?>" />
@@ -85,5 +75,4 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         </div>
     </div>
 </body>
-
 </html>

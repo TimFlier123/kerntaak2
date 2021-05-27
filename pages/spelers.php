@@ -3,28 +3,7 @@
 
 <head>
     <?php include_once "includes/head.php"; ?>
-    <style>
-        .wrapper {
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        table tr td:last-child {
-            width: 120px;
-        }
-    </style>
-    <!-- show tooltips and search trough table -->
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-            $("#search").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#spelers tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
+    <link rel="stylesheet" href="styling/style.css" type="text/css">
 </head>
 
 <body>
@@ -73,7 +52,7 @@
                             }
                             echo "</tbody>";
                             echo "</table>";
-                            // Free result set
+                            
                             mysqli_free_result($result);
                         } else {
                             // if table contains no data
@@ -90,6 +69,7 @@
             </div>
         </div>
     </div>
+    <script src="includes/js/functions.js"></script>
 </body>
 
 </html>

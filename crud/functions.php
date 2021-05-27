@@ -2,17 +2,16 @@
 
 /**
  * Function to delete player from database
+ * PARAM = ID, gives ID of player
  * Executes query or gives error
  */
-function deletePlayer()
+function deletePlayer($id)
 {
-
     require_once "../config/crud.php";
     $sql = "DELETE FROM speler WHERE id = ?";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
-        mysqli_stmt_bind_param($stmt, "i", $param_id);
-        $param_id = trim($_POST["id"]);
+        mysqli_stmt_bind_param($stmt, "i", $id);
 
         if (mysqli_stmt_execute($stmt)) {
             header("location: ../?page=spelers");
@@ -27,16 +26,16 @@ function deletePlayer()
 
 /**
  * Function to delete game from database
+ * PARAM = ID, gives ID of game
  * Executes query or gives error
  */
-function deleteGame()
+function deleteGame($id)
 {
     require_once "../config/crud.php";
     $sql = "DELETE FROM wedstrijd WHERE id = ?";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
-        mysqli_stmt_bind_param($stmt, "i", $param_id);
-        $param_id = trim($_POST["id"]);
+        mysqli_stmt_bind_param($stmt, "i", $id);
 
         if (mysqli_stmt_execute($stmt)) {
             header("location: ../?page=uitslagenbeheren");
@@ -51,34 +50,19 @@ function deleteGame()
 
 /**
  * Function to edit tournament from database
+ * PARAM = ID, gives ID of tournament
  * Executes query or gives error
  */
-function editTournament()
+function editTournament($id)
 {
     global $link;
-    $id = $_POST["id"];
     $name = trim($_POST["name"]);
     $date = trim($_POST["date"]);
-    if (empty($_POST["name"])) {
-        echo "<script type='text/javascript'>alert('Het veld Naam is niet ingevuld. Probeer opnieuw.');</script>";
-        header("Refresh:0");
-        die();
-    }
-    
-    
+
     $sql = "UPDATE toernooi SET description=?, date=? WHERE id=?";
-    echo $sql;
-    echo $name;
-    echo $date;
-    echo $id;
+
     if ($stmt = mysqli_prepare($link, $sql)) {
-        mysqli_stmt_bind_param($stmt, "sss", $param_name, $param_date, $param_id);
-        $param_name = $name;
-        $param_date = $date;
-        $param_id = $id;
-        echo $name;
-        echo $date;
-        echo $id;
+        mysqli_stmt_bind_param($stmt, "sss", $name, $date, $id);
 
         if (mysqli_stmt_execute($stmt)) {
 
@@ -95,18 +79,17 @@ function editTournament()
 
 /**
  * Function to delete school from database
+ * PARAM = ID, gives ID of school
  * Executes query or gives error
  */
-function deleteSchool()
+function deleteSchool($id)
 {
     require_once "../config/crud.php";
     $sql = "DELETE FROM school WHERE id = ?";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
 
-        mysqli_stmt_bind_param($stmt, "i", $param_id);
-        $param_id = trim($_POST["id"]);
-
+        mysqli_stmt_bind_param($stmt, "i", $id);
         if (mysqli_stmt_execute($stmt)) {
             header("location: ../?page=schools");
             exit();
@@ -121,18 +104,17 @@ function deleteSchool()
 
 /**
  * Function to delete tournament from database
+ * PARAM = ID, gives ID of tournament
  * Executes query or gives error
  */
-function deleteTournament()
+function deleteTournament($id)
 {
     require_once "../config/crud.php";
     $sql = "DELETE FROM toernooi WHERE id = ?";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
 
-        mysqli_stmt_bind_param($stmt, "i", $param_id);
-        $param_id = trim($_POST["id"]);
-
+        mysqli_stmt_bind_param($stmt, "i", $id);
         if (mysqli_stmt_execute($stmt)) {
             header("location: ../?page=toernooien");
             exit();
@@ -147,45 +129,23 @@ function deleteTournament()
 
 /**
  * Function to edit player from database
+ * PARAM = ID, gives ID of player
  * Executes query or gives error
  */
-function editPlayer()
+function editPlayer($id)
 {
-
     global $link;
     require_once "../config/crud.php";
-    $id = $_POST["id"];
 
-    $input_name = trim($_POST["name"]);
-    if (empty($input_name)) {
-        $name_err = "Please enter a name.";
-    } elseif (!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $name_err = "Please enter a valid name.";
-    } else {
-        $name = $input_name;
-    }
-
+    $name = trim($_POST["name"]);
     $insertion =  trim($_POST["insertion"]);
     $lastname = trim($_POST["lastname"]);
+    $school = trim($_POST["school"]);
 
-    $input_school = trim($_POST["school"]);
-    if (empty($input_school)) {
-        $school_err = "school.";
-    } else {
-        $school = $input_school;
-    }
-    if (empty($name_err) && empty($insertion_err) && empty($lastname_err) && empty($school_err)) {
-        $sql = "UPDATE speler SET callsign=?, insertion=?, lastname=?, schoolID=? WHERE id=?";
+    $sql = "UPDATE speler SET callsign=?, insertion=?, lastname=?, schoolID=? WHERE id=?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "sssss", $param_name, $param_insertion, $param_lastname, $param_school, $param_id,);
-
-            $param_name = $name;
-            $param_insertion = $insertion;
-            $param_lastname = $lastname;
-            $param_school = $school;
-            $param_id = $id;
-
+            mysqli_stmt_bind_param($stmt, "sssss", $name, $insertion, $lastname, $school, $id);
 
             if (mysqli_stmt_execute($stmt)) {
 
@@ -195,82 +155,56 @@ function editPlayer()
                 echo "Mislukt. Probeer opnieuw.";
             }
         }
+
         mysqli_stmt_close($stmt);
-    }
     mysqli_close($link);
 }
 
 /**
  * Function to edit game from database
+ * PARAM = ID, gives ID of game
  * Executes query or gives error
  */
-function editGame()
+function editGame($id)
 {
-
     global $link;
-    $id = $_POST["id"];
     $tournament = trim($_POST["tournament"]);
     $player1 = trim($_POST["player1"]);
     $player2 = trim($_POST["player2"]);
     $score1 = trim($_POST["score1"]);
     $score2 = trim($_POST["score2"]);
     $winnerID = trim($_POST["winnerID"]);
+  
+    $sql = "UPDATE wedstrijd SET tournamentID=?, player1ID=?, player2ID=?, score1=?, score2=?, winnerID=? WHERE id=?";
 
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "sssssss", $tournament, $player1, $player2, $score1, $score2, $winnerID, $id);
 
-
-    if (empty($name_err) && empty($insertion_err) && empty($lastname_err) && empty($school_err)) {
-        $sql = "UPDATE wedstrijd SET tournamentID=?, player1ID=?, player2ID=?, score1=?, score2=?, winnerID=? WHERE id=?";
-        echo $sql;
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "sssssss", $tournament, $player1, $player2, $score1, $score2, $winnerID, $id);
-
-            $param_tournament = $tournament;
-            $param_player1 = $player1;
-            $param_player2 = $player2;
-            $param_score1 = $score1;
-            $param_score2 = $score2;
-            $param_winnerID = $winnerID;
-
-
-
-            if (mysqli_stmt_execute($stmt)) {
-
-                header("location: ../?page=uitslagenbeheren");
-                exit();
-            } else {
-                echo "Mislukt. Probeer opnieuw.";
+        if (mysqli_stmt_execute($stmt)) {
+            header("location: ../?page=uitslagenbeheren");
+            exit();
+        } else {
+             echo "Mislukt. Probeer opnieuw.";
             }
         }
         mysqli_stmt_close($stmt);
-    }
     mysqli_close($link);
 }
 
 /**
  * Function to edit school from database
+ * PARAM = ID, gives ID of school
  * Executes query or gives error
  */
-function editSchool()
+function editSchool($id)
 {
     global $link;
-    $id = $_POST["id"];
+    $name = trim($_POST["name"]);
 
-    $input_name = trim($_POST["name"]);
-    if (empty($input_name)) {
-        $name_err = "Please enter a name.";
-    } elseif (!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $name_err = "Please enter a valid name.";
-    } else {
-        $name = $input_name;
-    }
+    $sql = "UPDATE school SET name=? WHERE id=?";
 
-    if (empty($name_err) && empty($insertion_err) && empty($lastname_err) && empty($school_err)) {
-        $sql = "UPDATE school SET name=? WHERE id=?";
-
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "ss", $param_name, $param_id,);
-            $param_name = $name;
-            $param_id = $id;
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "ss", $name, $id,);
 
             if (mysqli_stmt_execute($stmt)) {
                 header("location: ../?page=schools");
@@ -280,7 +214,6 @@ function editSchool()
             }
         }
         mysqli_stmt_close($stmt);
-    }
     mysqli_close($link);
 }
 
@@ -291,48 +224,20 @@ function editSchool()
 function createPlayer()
 {
     global $link;
-    $input_name = trim($_POST["name"]);
+    $name = trim($_POST["name"]);
+    $insertion = trim($_POST["insertion"]);
+    $lastname = trim($_POST["lastname"]);
+    $school = trim($_POST["school"]);
 
-    if (empty($input_name)) {
-        $name_err = "Please enter a name.";
-    } elseif (!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $name_err = "Please enter a valid name.";
-    } else {
-        $name = $input_name;
-    }
-
-    $input_insertion = trim($_POST["insertion"]);
-    if (empty($input_insertion)) {
-        $insertion_err = "insetion.";
-    } else {
-        $insertion = $input_insertion;
-    }
-
-    $input_lastname = trim($_POST["lastname"]);
-    if (empty($input_insertion)) {
-        $lastname_err = "lastname.";
-    } else {
-        $lastname = $input_lastname;
-    }
-    $input_school = trim($_POST["school"]);
-    if (empty($input_school)) {
-        $school_err = "school.";
-    } else {
-        $school = $input_school;
-    }
-
-    if (empty($name_err) && empty($insertion_err) && empty($lastname_err) && empty($school_err)) {
+    if (!empty($name) && !empty($lastname) && !empty($school)) {
         $sql = "INSERT INTO speler (callsign, insertion, lastname, schoolID) VALUES (?, ?, ?, ?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "ssss", $param_name, $param_insertion, $param_lastname, $param_school);
-            $param_name = $name;
-            $param_insertion = $insertion;
-            $param_lastname = $lastname;
-            $param_school = $school;
+            mysqli_stmt_bind_param($stmt, "ssss", $name, $insertion, $lastname, $school);
 
             if (mysqli_stmt_execute($stmt)) {
-                header("location:../?page=spelers");
+                echo "<script type='text/javascript'>alert('Speler Toegevoegd');</script>";
+                header("Refresh:0");
             } else {
                 echo $sql;
             }
@@ -349,26 +254,15 @@ function createPlayer()
 function createSchool()
 {
     global $link;
-    $input_name = trim($_POST["name"]);
+    $name = trim($_POST["name"]);
 
-    if (empty($input_name)) {
-        $name_err = "Please enter a name.";
-    } elseif (!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $name_err = "Please enter a valid name.";
-    } else {
-        $name = $input_name;
-    }
-
-    if (empty($name_err) && empty($insertion_err) && empty($lastname_err) && empty($school_err)) {
+    if (!empty($name)) {
         $sql = "INSERT INTO school (name) VALUES (?)";
         if ($stmt = mysqli_prepare($link, $sql)) {
-
-            mysqli_stmt_bind_param($stmt, "s", $param_name);
-            $param_name = $name;
-
+            mysqli_stmt_bind_param($stmt, "s", $name);
+            
             if (mysqli_stmt_execute($stmt)) {
-                $message = "School Toegevoegd";
-                echo "<script type='text/javascript'>alert('$message');</script>";
+                echo "<script type='text/javascript'>alert('School Toegevoegd');</script>";
             } else {
                 echo $sql;
             }
@@ -388,26 +282,16 @@ function createSchool()
 function createTournament()
 {
     global $link;
-    global $tdate;
 
-    $input_name = trim($_POST["name"]);
-    if (empty($input_name)) {
-        $name_err = "Please enter a name.";
-    } elseif (!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $name_err = "Please enter a valid name.";
-    } else {
-        $name = $input_name;
-    }
+    $name = trim($_POST["name"]);
+    $date = trim($_POST["date"]);
 
-    if (empty($name_err) && empty($insertion_err) && empty($lastname_err) && empty($school_err)) {
+    if (!empty($name) && !empty($date)) {
+    
         $sql = "INSERT INTO toernooi (description, date) VALUES (?, ?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
-
-            mysqli_stmt_bind_param($stmt, "ss", $param_name, $param_tdate);
-            $param_name = $name;
-            $param_tdate = $tdate;
-
+            mysqli_stmt_bind_param($stmt, "ss", $name, $date);
             if (mysqli_stmt_execute($stmt)) {
                 header("location:../?page=toernooien");
             } else {
@@ -417,7 +301,7 @@ function createTournament()
         mysqli_stmt_close($stmt);
     }
     else{
-        echo "<script type='text/javascript'>alert('Het veld Naam is niet ingevuld. Probeer opnieuw.');</script>";
+        echo "<script type='text/javascript'>alert('Niet alle velden zijn ingevuld. Probeer opnieuw.');</script>";
     }
     mysqli_close($link);
 }
@@ -427,10 +311,7 @@ function createTournament()
  */
 function giveError()
 {
-    if (empty(trim($_GET["id"]))) {
-        header("location: error.php");
-        exit();
-    }
+    // echo "<script type='text/javascript'>alert('Probeer opnieuw.');</script>";
 }
 /**
  * Function to check if imported file is xml to database
@@ -445,8 +326,10 @@ function checkXML($file){
         die();
     }
 }
+
 /**
  * Function to import player from XML file to database
+ * Parameter $file: is filename
  * Executes query or gives error
  */
 function spelersImporteren($file, $conn)
@@ -471,6 +354,7 @@ function spelersImporteren($file, $conn)
 
 /**
  * Function to import school from XML file to database
+ * Parameter $file: is filename
  * Executes query or gives error
  */
 function schoolImporteren($file, $conn)
@@ -492,6 +376,7 @@ function schoolImporteren($file, $conn)
 
 /**
  * Function to import tournament from XML file to database
+ * Parameter $file: is filename
  * Executes query or gives error
  */
 function tournamentImporteren($file, $conn)
@@ -514,6 +399,7 @@ function tournamentImporteren($file, $conn)
 
 /**
  * Function to import registration from XML file to database
+ * Parameter $file: is filename
  * Executes query or gives error
  */
 function aanmeldingenImporteren($file, $conn)
@@ -536,6 +422,7 @@ function aanmeldingenImporteren($file, $conn)
 
 /**
  * Function to import game from XML file to database
+ * Parameter $file: is filename
  * Executes query or gives error
  */
 function wedstrijdImporteren($file, $conn)
@@ -571,15 +458,11 @@ function aanmeldingHandmatig()
     $playerID = trim($_POST["player"]);
     $tournamentID = trim($_POST["tournament"]);
 
-    if (empty($tournament_err) && empty($tournament_err)) {
-
-        $sql = "INSERT INTO aanmelding (playerID, tournamentID) VALUES (?, ?)";
+    $sql = "INSERT INTO aanmelding (playerID, tournamentID) VALUES (?, ?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
 
-            mysqli_stmt_bind_param($stmt, "ss", $param_playerID, $param_tournamentID);
-            $param_playerID = $playerID;
-            $param_tournamentID = $tournamentID;
+            mysqli_stmt_bind_param($stmt, "ss", $playerID, $tournamentID);
 
             if (mysqli_stmt_execute($stmt)) {
                 $message = "Aanmelding succesvol";
@@ -590,6 +473,5 @@ function aanmeldingHandmatig()
             }
         }
         mysqli_stmt_close($stmt);
-    }
     mysqli_close($link);
 }

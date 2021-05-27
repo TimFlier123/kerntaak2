@@ -1,15 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <?php include_once "../includes/head.php"; ?>
+    <link rel="stylesheet" href="../styling/style.css" type="text/css">
+</head>
+
 <?php
 include_once('functions.php');
 require_once "../config/crud.php";
 
-
-$name  = "";
-$name_err = "";
-
 // if form is submitted then run the function editSchool, else show values
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
-
-    editSchool();
+    $id = $_POST["id"];
+    editSchool($id);
 } else {
 
     if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
@@ -44,23 +48,8 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>School Bewerken</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .wrapper {
-            width: 600px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
-
 <body style="background-color:#ff9623;">
-    <div class="wrapper">
+    <div class="wrapperpx">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -82,5 +71,4 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         </div>
     </div>
 </body>
-
 </html>

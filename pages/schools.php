@@ -3,26 +3,11 @@
 
 <head>
     <?php include_once "includes/head.php"; ?>
-    <style>
-        .wrapper {
-            width: 600px;
-            margin: 0 auto;
-        }
-
-        table tr td:last-child {
-            width: 120px;
-        }
-    </style>
-    <!-- show tooltips -->
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
+    <link rel="stylesheet" href="styling/style.css" type="text/css">
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class="wrapperpx">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -41,15 +26,12 @@
                             echo '<table class="table table-bordered table-striped">';
                             echo "<thead>";
                             echo "<tr>";
-
                             echo "<th>Name</th>";
-
                             echo "</tr>";
                             echo "</thead>";
                             echo "<tbody>";
                             while ($row = mysqli_fetch_array($result)) {
                                 echo "<tr>";
-
                                 echo "<td>" . $row['name'] . "</td>";
                                 echo "<td>";
                                 echo '<a href="crud/editschool.php?id=' . $row['ID'] . '" class="mr-3" title="School Bewerken" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
@@ -73,6 +55,6 @@
             </div>
         </div>
     </div>
+    <script src="includes/js/functions.js"></script>
 </body>
-
 </html>

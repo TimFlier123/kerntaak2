@@ -6,40 +6,41 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <head>
-<link rel="stylesheet" href="styling/style.css">
-</head>
+    <link rel="stylesheet" href="styling/style.css">
+  </head>
 
   <!-- Header Menu -->
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
-     
-  <div class="dropdown">
-  <span>Basisgegevens</span>
-  <div class="dropdown-content">
-        <a class="nav-link" href="?page=spelers">Spelers</a>
-        <a class="nav-link" href="?page=schools">Scholen</a>
-        <a class="nav-link" href="?page=toernooien">Toernooien</a>
-        <a class="nav-link" href="?page=aanmeldingen">Aanmeldingen</a>
-  </div>
-</div>
-<div class="dropdown">
-  <span>Aanmelden</span>
-  <div class="dropdown-content">
-        <a class="nav-link" href="?page=handmatig">Handmatig</a>
-        <a class="nav-link" href="?page=importeren">Importeren</a>
-        <a class="nav-link" href="?page=sluiten">Sluiten</a>
-  </div>
-</div>
-<div class="dropdown">
-  <span>Uitslagen</span>
-  <div class="dropdown-content">
-        <a class="nav-link" href="?page=toernooioverzicht">Toernooioverzicht</a>
-        <a class="nav-link" href="?page=uitslagenbeheren">Uitslagen beheren</a>
-        <a class="nav-link" href="?page=csv">Indelen Volg Ronde</a>
-      </li>
-  </div>
-</div>
+
+      <div class="dropdown">
+        <span>Basisgegevens</span>
+        <div class="dropdown-content">
+          <a class="nav-link" href="?page=spelers">Spelers</a>
+          <a class="nav-link" href="?page=schools">Scholen</a>
+          <a class="nav-link" href="?page=toernooien">Toernooien</a>
+          <a class="nav-link" href="?page=aanmeldingen">Aanmeldingen</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <span>Aanmelden</span>
+        <div class="dropdown-content">
+          <a class="nav-link" href="?page=handmatig">Handmatig</a>
+          <a class="nav-link" href="?page=importeren">Importeren</a>
+          <a class="nav-link" href="?page=sluiten">Sluiten</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <span>Uitslagen</span>
+        <div class="dropdown-content">
+          <a class="nav-link" href="?page=toernooioverzicht">Toernooioverzicht</a>
+          <a class="nav-link" href="?page=uitslagenbeheren">Uitslagen beheren</a>
+          <a class="nav-link" href="?page=csv">Indelen Volg Ronde</a>
+          </li>
+        </div>
+      </div>
     </ul>
   </div>
 </nav>

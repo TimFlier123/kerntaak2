@@ -1,15 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <?php include_once "../includes/head.php"; ?>
+    <link rel="stylesheet" href="../styling/style.css" type="text/css">
+</head>
+
 <?php
 include_once('functions.php');
 require_once "../config/crud.php";
 
 // if form is submitted then run the function editPlayer, else show values
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
-
-    editPlayer();
+    $id = $_POST["id"];
+    editPlayer($id);
 } else {
 
     if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
-
         $id =  trim($_GET["id"]);
 
         $sql = "SELECT * FROM speler WHERE id = ?";
@@ -37,8 +44,6 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                 echo "Oops! Something went wrong. Please try again later.";
             }
         }
-
-        
     } else {
         header("location: error.php");
         exit();
@@ -46,43 +51,25 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Update Record</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .wrapper {
-            width: 600px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
-
 <body style="background-color:#ff9623;">
-    <div class="wrapper">
+    <div class="wrapperpx">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="mt-5">Speler Bewerken</h2>
                     <!-- edit player form -->
-                    <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
+                    <form action="" method="post">
                         <div class="form-group">
                             <label>Voornaam</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $name_err; ?></span>
+                            <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
                         </div>
                         <div class="form-group">
                             <label>Tussenvoegsel</label>
-                            <input type="text" name="insertion" class="form-control <?php echo (!empty($insertion_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $insertion; ?>">
-                            <span class="invalid-feedback"><?php echo $insertion_err; ?></span>
+                            <input type="text" name="insertion" class="form-control" value="<?php echo $insertion; ?>">
                         </div>
                         <div class="form-group">
                             <label>Achternaam</label>
-                            <input type="text" name="lastname" class="form-control <?php echo (!empty($lastname_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $lastname; ?>">
-                            <span class="invalid-feedback"><?php echo $lastname_err; ?></span>
+                            <input type="text" name="lastname" class="form-control" value="<?php echo $lastname; ?>">
                         </div>
 
                         <div class="form-group">
@@ -108,5 +95,4 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         </div>
     </div>
 </body>
-
 </html>

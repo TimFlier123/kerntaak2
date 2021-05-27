@@ -3,26 +3,11 @@
 
 <head>
     <?php include_once "includes/head.php"; ?>
-    <style>
-        .wrapper {
-            width: 600px;
-            margin: 0 auto;
-        }
-
-        table tr td:last-child {
-            width: 120px;
-        }
-    </style>
-    <!-- show tooltips -->
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
+    <link rel="stylesheet" href="styling/style.css" type="text/css">
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class="wrapperpx">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -69,7 +54,6 @@
                     } else {
                         echo "Fout. Probeer opnieuw.";
                     }
-
                     mysqli_close($link);
                     ?>
                 </div>

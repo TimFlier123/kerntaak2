@@ -50,3 +50,24 @@ function checkKey(e) {
     dotheneedful(sibling);
   }
 }
+$(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+  $("#search").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#spelers tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+  });
+});
+
+$(document).ready(function() {
+  document.getElementById('email-list').onchange = function() {
+    var i = 1;
+    var myDiv = document.getElementById(i);
+    while (myDiv) {
+        myDiv.style.display = 'none';
+        myDiv = document.getElementById(++i);
+    }
+    document.getElementById(this.value).style.display = 'block';
+}
+});

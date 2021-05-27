@@ -1,5 +1,8 @@
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
-</script>
+<head>
+    <?php include_once "includes/head.php"; ?>
+    <link rel="stylesheet" href="styling/style.css" type="text/css">
+</head>
+
 <?php
 include_once('crud/functions.php');
 $servername = "localhost";
@@ -29,12 +32,7 @@ if (isset($_FILES['xmlPlayers'])) {
 }
 ?>
 
-<style>
-    .form-select {
-        display: none;
-    }
-</style>
-
+<body>
 <!-- Select which category you want to import to -->
 <select name="options" id="email-list">
     <option value="1">Spelers</option>
@@ -128,6 +126,8 @@ if (isset($_FILES['xmlPlayers'])) {
         </div>
     </div>
 </div>
+    
+</body>
 
 <!-- Script to show certain category to import to -->
 <script>

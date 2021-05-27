@@ -3,22 +3,7 @@
 
 <head>
     <?php include_once "includes/head.php"; ?>
-    <style>
-        .wrapper {
-            width: 600px;
-            margin: 0 auto;
-        }
-
-        th td {
-            width: 10% !important;
-        }
-    </style>
-    <!-- show tooltips -->
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
+    <link rel="stylesheet" href="styling/style.css" type="text/css">
 </head>
 
 <body>
@@ -51,14 +36,8 @@
                             while ($row = mysqli_fetch_array($result)) {
                                 echo "<tr>";
 
-                                echo "<td>";
-                                if ($row['player1ID'] == $row['winnerID']) echo "<p style='color:green'> " . $row['player1ID'] . "</p>";
-                                else echo $row['player1ID'];
-                                "</td>";
-                                echo "<td>";
-                                if ($row['player2ID'] == $row['winnerID']) echo "<p style='color:green'> " . $row['player2ID'] . "</p>";
-                                else echo $row['player2ID'];
-                                "</td>";
+                                echo "<td>"; if ($row['player1ID'] == $row['winnerID']) echo "<p style='color:green'> " . $row['player1ID'] . "</p>"; else echo $row['player1ID'];"</td>";
+                                echo "<td>"; if ($row['player2ID'] == $row['winnerID']) echo "<p style='color:green'> " . $row['player2ID'] . "</p>"; else echo $row['player2ID'];"</td>";
                                 echo "<td>"  . $row['score1'] . "</td>";
                                 echo "<td>" . $row['score2'] . "</td>";
 
@@ -80,7 +59,5 @@
             </div>
         </div>
     </div>
-
 </body>
-
 </html>
